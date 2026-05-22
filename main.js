@@ -62,7 +62,7 @@
       });
     }, { threshold: 0.1 });
     document.querySelectorAll(
-      '.section h2, .section .art-grid, .section .about-strip, ' +
+      '.section .label, .section h2, .section .art-grid, .section .about-strip, ' +
       '.section .exhibitions-grid, .section .portfolio-grid, ' +
       '.section .services-grid, .section .contact-grid'
     ).forEach(function (el) {

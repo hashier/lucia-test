@@ -161,6 +161,10 @@ p  { font-size: 1rem; line-height: 1.9; }
 }
 .reveal.visible { opacity: 1; transform: none; }
 
+/* Two-beat: label appears, then heading 150ms later */
+.label.reveal { transition-duration: 0.5s; }
+.section h2.reveal { transition-delay: 150ms; }
+
 /* ============================================================
    NAVIGATION
    ============================================================ */
@@ -259,15 +263,23 @@ p  { font-size: 1rem; line-height: 1.9; }
 
 /* Mobile menu */
 .mobile-nav {
-  display: none;
   position: fixed;
   top: 72px; left: 0; right: 0; bottom: 0;
   background: var(--ink);
   z-index: 199;
   padding: 3rem 2rem;
   overflow-y: auto;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.28s ease, transform 0.28s ease, visibility 0s linear 0.28s;
 }
-.mobile-nav.open { display: block; }
+.mobile-nav.open {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.28s ease, transform 0.28s ease;
+}
 .mobile-nav a {
   display: block;
   padding: 1.1rem 0;
@@ -437,6 +449,20 @@ p  { font-size: 1rem; line-height: 1.9; }
 }
 .art-card:hover img { transform: scale(1.06); }
 .art-card-body { padding: 1rem 0.15rem 0; }
+
+/* Staggered reveal: cards animate individually instead of the whole grid */
+.art-grid.reveal { opacity: 1; transform: none; transition: none; }
+.art-card {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.art-grid.visible .art-card                { opacity: 1; transform: none; }
+.art-grid.visible .art-card:nth-child(2)   { transition-delay:  80ms; }
+.art-grid.visible .art-card:nth-child(3)   { transition-delay: 160ms; }
+.art-grid.visible .art-card:nth-child(4)   { transition-delay: 240ms; }
+.art-grid.visible .art-card:nth-child(5)   { transition-delay: 320ms; }
+.art-grid.visible .art-card:nth-child(6)   { transition-delay: 400ms; }
 .art-card-body h4 {
   font-family: 'Playfair Display', serif;
   font-size: 0.95rem;
@@ -475,14 +501,18 @@ p  { font-size: 1rem; line-height: 1.9; }
   gap: 1.25rem;
   margin-top: 4rem;
 }
+.exhibitions-grid picture {
+  display: block;
+  overflow: hidden;
+}
 .exhibitions-grid img {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  transition: transform 0.5s ease, filter 0.5s ease;
-  filter: grayscale(15%);
+  transition: transform 0.65s ease, filter 0.65s ease;
+  filter: grayscale(20%);
 }
-.exhibitions-grid img:hover { transform: scale(1.04); filter: grayscale(0%); }
+.exhibitions-grid picture:hover img { transform: scale(1.06); filter: grayscale(0%); }
 
 /* ============================================================
    GALLERY
@@ -555,6 +585,18 @@ p  { font-size: 1rem; line-height: 1.9; }
   font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: 0.82rem;
+}
+.lightbox-counter {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.28);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.24em;
+  white-space: nowrap;
+  pointer-events: none;
 }
 .lightbox-close {
   position: fixed;
