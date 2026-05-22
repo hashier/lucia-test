@@ -11,8 +11,11 @@
   <link rel="canonical" href="https://lucianovelli.com/it/sull-artista">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
+  <meta property="og:image" content="https://lucianovelli.com/onewebmedia/My%20Wonderful%20World.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Lucia Novelli","jobTitle":"Artista","url":"https://lucianovelli.com","sameAs":["https://www.instagram.com/lucianovelli/"],"address":{"@type":"PostalAddress","addressLocality":"Rieti","addressCountry":"IT"}}</script>
 </head>
 <body>
 
@@ -50,9 +53,9 @@
   </div>
 </div>
 
-<section class="gallery-page-hero">
+<section class="page-hero">
   <div class="container">
-    <p class="label" style="color:var(--cream)">L'Artista</p>
+    <p class="label">L'Artista</p>
     <h1>Colori, Gatti &amp; Caffè</h1>
     <p>La vita e l'opera di Lucia Novelli</p>
   </div>
@@ -80,7 +83,7 @@
     <p class="label">Opera in Evidenza</p>
     <h2>My Wonderful World</h2>
     <p class="subtitle">Una delle opere più celebrate di Lucia, che mescola surrealismo con calore e immaginazione.</p>
-    <img src="/onewebmedia/My%20Wonderful%20World.png" alt="My Wonderful World" loading="lazy" style="width:100%;max-height:500px;object-fit:cover">
+    <img src="/onewebmedia/My%20Wonderful%20World.png" alt="My Wonderful World" loading="lazy" style="width:100%;max-height:520px;object-fit:cover;margin-top:3rem">
   </div>
 </section>
 
@@ -96,26 +99,16 @@
     <span class="footer-logo">Lucia Novelli</span>
     <p><a href="mailto:info@lucianovelli.com">info@lucianovelli.com</a></p>
     <p>02100 Rieti, Italia</p>
-    <p style="margin-top:1rem;opacity:.4">&copy; Lucia Novelli</p>
+    <p style="margin-top:1.25rem">
+      <a href="https://www.instagram.com/lucianovelli/" target="_blank" rel="noopener" aria-label="Instagram" style="opacity:.55;transition:opacity .3s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.55">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </p>
+    <p style="margin-top:1rem;opacity:.35">&copy; Lucia Novelli</p>
   </div>
 </footer>
 
-<script>
-(function(){
-  var btn=document.querySelector('.hamburger'),menu=document.getElementById('mobile-nav');
-  btn.addEventListener('click',function(){
-    var o=menu.classList.toggle('open');
-    btn.classList.toggle('open',o);
-    btn.setAttribute('aria-expanded',o);
-  });
-  menu.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded','false');
-    });
-  });
-})();
-</script>
+<button class="back-to-top" id="back-to-top" aria-label="Torna su">&#8593;</button>
+<script src="/main.js" defer></script>
 </body>
 </html>

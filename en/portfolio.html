@@ -11,8 +11,10 @@
   <link rel="canonical" href="https://lucianovelli.com/en/portfolio">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
+  <meta property="og:image" content="https://lucianovelli.com/onewebmedia/My%20Wonderful%20World.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 </head>
 <body>
 
@@ -50,15 +52,14 @@
   </div>
 </div>
 
-<section class="gallery-page-hero">
+<section class="page-hero">
   <div class="container">
-    <p class="label" style="color:var(--cream)">Portfolio</p>
+    <p class="label">Portfolio</p>
     <h1>Portfolio</h1>
     <p>Paintings, installations &amp; beyond</p>
   </div>
 </section>
 
-<!-- Permanent Installations -->
 <section class="section">
   <div class="container">
     <p class="label">Permanent Installations</p>
@@ -93,7 +94,6 @@
   </div>
 </section>
 
-<!-- Beyond Paintings -->
 <section class="section section--alt">
   <div class="container">
     <p class="label">Beyond Paintings</p>
@@ -101,17 +101,17 @@
     <p class="subtitle">Lucia does not only have a passion for oil on canvas, but it spills over into other categories such as bags, accessories, jewelry and workshops.</p>
     <div class="services-grid">
       <div class="service-card">
-        <img src="/onewebmedia/Bags%20(2).jpg" alt="Bags and accessories" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1.25rem">
+        <img src="/onewebmedia/Bags%20(2).jpg" alt="Bags and accessories" loading="lazy">
         <h3>Bags &amp; Accessories</h3>
         <p>Handcrafted bags and accessories featuring Lucia's unique artistic style.</p>
       </div>
       <div class="service-card">
-        <img src="/onewebmedia/Necklace%20(2).jpg" alt="Jewelry and bijoux" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1.25rem">
+        <img src="/onewebmedia/Necklace%20(2).jpg" alt="Jewelry and bijoux" loading="lazy">
         <h3>Jewelry &amp; Bijoux</h3>
         <p>Wearable art pieces — unique jewelry and bijoux created with the same passion as her paintings.</p>
       </div>
       <div class="service-card">
-        <img src="/onewebmedia/Workshop%20(2).jpg" alt="Workshop" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1.25rem">
+        <img src="/onewebmedia/Workshop%20(2).jpg" alt="Workshop" loading="lazy">
         <h3>Workshops &amp; Courses</h3>
         <p>Learn to paint with Lucia. Group and individual workshops available for all skill levels.</p>
       </div>
@@ -119,7 +119,6 @@
   </div>
 </section>
 
-<!-- Restoration -->
 <section class="section">
   <div class="container">
     <div class="about-strip">
@@ -136,7 +135,6 @@
   </div>
 </section>
 
-<!-- Creative Styling -->
 <section class="section section--alt">
   <div class="container">
     <div class="about-strip">
@@ -166,26 +164,16 @@
     <span class="footer-logo">Lucia Novelli</span>
     <p><a href="mailto:info@lucianovelli.com">info@lucianovelli.com</a></p>
     <p>02100 Rieti, Italy</p>
-    <p style="margin-top:1rem;opacity:.4">&copy; Lucia Novelli</p>
+    <p style="margin-top:1.25rem">
+      <a href="https://www.instagram.com/lucianovelli/" target="_blank" rel="noopener" aria-label="Instagram" style="opacity:.55;transition:opacity .3s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=.55">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </p>
+    <p style="margin-top:1rem;opacity:.35">&copy; Lucia Novelli</p>
   </div>
 </footer>
 
-<script>
-(function(){
-  var btn=document.querySelector('.hamburger'),menu=document.getElementById('mobile-nav');
-  btn.addEventListener('click',function(){
-    var o=menu.classList.toggle('open');
-    btn.classList.toggle('open',o);
-    btn.setAttribute('aria-expanded',o);
-  });
-  menu.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded','false');
-    });
-  });
-})();
-</script>
+<button class="back-to-top" id="back-to-top" aria-label="Back to top">&#8593;</button>
+<script src="/main.js" defer></script>
 </body>
 </html>
