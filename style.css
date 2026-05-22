@@ -618,7 +618,7 @@ p  { font-size: 1rem; line-height: 1.9; }
   top: 50%; transform: translateY(-50%);
   background: none;
   border: none;
-  color: rgba(255,255,255,0.4);
+  color: rgba(255,255,255,0.5);
   font-size: 2.5rem;
   cursor: pointer;
   padding: 1.5rem;
@@ -626,6 +626,7 @@ p  { font-size: 1rem; line-height: 1.9; }
   line-height: 1;
   font-family: 'DM Sans', sans-serif;
   font-weight: 200;
+  z-index: 1;
 }
 .lightbox-prev { left: 0.25rem; }
 .lightbox-next { right: 0.25rem; }
