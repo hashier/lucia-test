@@ -32,6 +32,42 @@ a   { color: inherit; text-decoration: none; }
 .instagram-link:hover { opacity: 1; }
 ul  { list-style: none; }
 
+/* ── Skip link ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  z-index: 9999;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; }
+
+/* ── Focus styles ── */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+.nav-links a:focus-visible,
+.nav-logo:focus-visible,
+.hamburger:focus-visible,
+.back-to-top:focus-visible,
+.btn:focus-visible,
+.hero-link:focus-visible,
+.gallery-item:focus-visible,
+.lang-flags a:focus-visible,
+.mobile-nav a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 /* ── Typography ── */
 h1, h2, h3, h4 {
   font-family: 'Playfair Display', serif;
@@ -372,7 +408,7 @@ p  { font-size: 1rem; line-height: 1.9; }
   background: radial-gradient(ellipse at 70% 40%, rgba(201,150,62,0.09) 0%, transparent 65%);
 }
 .page-hero .container { position: relative; }
-.page-hero .label { color: rgba(255,255,255,0.35); }
+.page-hero .label { color: rgba(255,255,255,0.6); }
 .page-hero h1 {
   color: var(--paper);
   font-style: italic;
@@ -380,7 +416,7 @@ p  { font-size: 1rem; line-height: 1.9; }
   font-size: clamp(3rem, 7vw, 6rem);
   margin-top: 0.5rem;
 }
-.page-hero p { color: rgba(255,255,255,0.4); font-size: 0.9rem; margin-top: 1rem; letter-spacing: 0.06em; }
+.page-hero p { color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 1rem; letter-spacing: 0.06em; }
 
 /* ============================================================
    ART GRID  (featured works)
@@ -729,4 +765,28 @@ p  { font-size: 1rem; line-height: 1.9; }
 @media (max-width: 380px) {
   .art-grid     { grid-template-columns: 1fr; }
   .gallery-grid { columns: 1; }
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print {
+  .site-nav, .mobile-nav, .hamburger, .back-to-top,
+  .hero-scroll, .cta-strip, .lang-flags, .skip-link { display: none !important; }
+  body { font-size: 12pt; color: #000; background: #fff; cursor: default; }
+  a, button { cursor: default; }
+  .hero { height: auto; min-height: 0; page-break-after: always; }
+  .hero-bg, .hero-overlay { display: none; }
+  .hero-content { position: static; transform: none; padding: 2rem 0; color: #000; }
+  .hero-content h1, .hero-content .hero-eyebrow, .hero-content .hero-tagline { color: #000; }
+  .hero-link { display: none; }
+  .section, .section--alt { padding: 2rem 0; }
+  .page-hero { padding: 2rem 0; background: #fff; }
+  .page-hero h1, .page-hero p { color: #000; }
+  .gallery-grid { columns: 3; }
+  .gallery-item::after { display: none; }
+  .lightbox { display: none !important; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #555; }
+  a[href^="/"]:after { content: " (lucianovelli.com" attr(href) ")"; }
+  a[href^="mailto:"]:after, a[href^="tel:"]:after { content: ""; }
 }
