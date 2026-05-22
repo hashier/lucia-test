@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://lucianovelli.com/en/portfolio">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -50,15 +50,14 @@
   </div>
 </div>
 
-<section class="gallery-page-hero">
+<section class="page-hero">
   <div class="container">
-    <p class="label" style="color:var(--cream)">Portfolio</p>
+    <p class="label">Portfolio</p>
     <h1>Portfolio</h1>
     <p>Paintings, installations &amp; beyond</p>
   </div>
 </section>
 
-<!-- Permanent Installations -->
 <section class="section">
   <div class="container">
     <p class="label">Permanent Installations</p>
@@ -93,7 +92,6 @@
   </div>
 </section>
 
-<!-- Beyond Paintings -->
 <section class="section section--alt">
   <div class="container">
     <p class="label">Beyond Paintings</p>
@@ -101,17 +99,17 @@
     <p class="subtitle">Lucia does not only have a passion for oil on canvas, but it spills over into other categories such as bags, accessories, jewelry and workshops.</p>
     <div class="services-grid">
       <div class="service-card">
-        <img src="/onewebmedia/Bags%20(2).jpg" alt="Bags and accessories" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1.25rem">
+        <img src="/onewebmedia/Bags%20(2).jpg" alt="Bags and accessories" loading="lazy">
         <h3>Bags &amp; Accessories</h3>
         <p>Handcrafted bags and accessories featuring Lucia's unique artistic style.</p>
       </div>
       <div class="service-card">
-        <img src="/onewebmedia/Necklace%20(2).jpg" alt="Jewelry and bijoux" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1.25rem">
+        <img src="/onewebmedia/Necklace%20(2).jpg" alt="Jewelry and bijoux" loading="lazy">
         <h3>Jewelry &amp; Bijoux</h3>
         <p>Wearable art pieces — unique jewelry and bijoux created with the same passion as her paintings.</p>
       </div>
       <div class="service-card">
-        <img src="/onewebmedia/Workshop%20(2).jpg" alt="Workshop" loading="lazy" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:1.25rem">
+        <img src="/onewebmedia/Workshop%20(2).jpg" alt="Workshop" loading="lazy">
         <h3>Workshops &amp; Courses</h3>
         <p>Learn to paint with Lucia. Group and individual workshops available for all skill levels.</p>
       </div>
@@ -119,7 +117,6 @@
   </div>
 </section>
 
-<!-- Restoration -->
 <section class="section">
   <div class="container">
     <div class="about-strip">
@@ -136,7 +133,6 @@
   </div>
 </section>
 
-<!-- Creative Styling -->
 <section class="section section--alt">
   <div class="container">
     <div class="about-strip">
@@ -172,19 +168,13 @@
 
 <script>
 (function(){
+  var nav=document.querySelector('.site-nav');
+  nav.classList.add('site-nav--solid');
+  window.addEventListener('scroll',function(){if(window.scrollY>80){nav.classList.add('site-nav--solid');}else{nav.classList.remove('site-nav--solid');}},{passive:true});
   var btn=document.querySelector('.hamburger'),menu=document.getElementById('mobile-nav');
-  btn.addEventListener('click',function(){
-    var o=menu.classList.toggle('open');
-    btn.classList.toggle('open',o);
-    btn.setAttribute('aria-expanded',o);
-  });
-  menu.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded','false');
-    });
-  });
+  btn.addEventListener('click',function(){var o=menu.classList.toggle('open');btn.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');});});
+  if('IntersectionObserver' in window){var ro=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);}});},{threshold:0.1});document.querySelectorAll('.section h2,.section .portfolio-grid,.section .services-grid,.section .about-strip').forEach(function(el){el.classList.add('reveal');ro.observe(el);});}
 })();
 </script>
 </body>

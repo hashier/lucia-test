@@ -11,7 +11,7 @@
   <link rel="canonical" href="https://lucianovelli.com/it/contatti">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -50,9 +50,9 @@
   </div>
 </div>
 
-<section class="gallery-page-hero">
+<section class="page-hero">
   <div class="container">
-    <p class="label" style="color:var(--cream)">Contattaci</p>
+    <p class="label">Contattaci</p>
     <h1>Contatti</h1>
     <p>Siamo felici di sentirti</p>
   </div>
@@ -63,7 +63,7 @@
     <div class="contact-grid">
       <div>
         <p class="label">Scrivi un Messaggio</p>
-        <h2 style="margin-bottom:2rem">Scrivici</h2>
+        <h2 style="margin-bottom:2.5rem">Scrivici</h2>
         <form class="contact-form" action="/sendmail.php" method="post">
           <div class="contact-form-field">
             <label for="name">Nome</label>
@@ -86,22 +86,22 @@
       </div>
       <div>
         <p class="label">Informazioni di Contatto</p>
-        <h2 style="margin-bottom:2rem">Dove Siamo</h2>
+        <h2 style="margin-bottom:2.5rem">Dove Siamo</h2>
         <div class="contact-detail">
           <strong>Email</strong>
-          <a href="mailto:info@lucianovelli.com">info@lucianovelli.com</a>
+          <p><a href="mailto:info@lucianovelli.com">info@lucianovelli.com</a></p>
         </div>
         <div class="contact-detail">
           <strong>Telefono</strong>
-          <a href="tel:+390340895125">+39 340 895 1257</a>
+          <p><a href="tel:+390340895125">+39 340 895 1257</a></p>
         </div>
         <div class="contact-detail">
           <strong>Indirizzo</strong>
-          02100 Rieti, Italia
+          <p>02100 Rieti, Italia</p>
         </div>
         <div class="contact-detail" style="margin-top:2rem">
           <strong>Per gli Acquisti</strong>
-          Il modo più semplice per aggiudicarvi una delle bellissime opere è mettendovi in contatto direttamente. Una risposta è garantita entro un paio di giorni. Spese di spedizione internazionale incluse.
+          <p>Il modo più semplice per aggiudicarvi una delle bellissime opere è mettendovi in contatto direttamente. Una risposta è garantita entro un paio di giorni. Spese di spedizione internazionale incluse.</p>
         </div>
         <img src="/onewebmedia/Tutti%20i%20sogni%20del%20mondo%2C%202017.png" alt="Tutti i sogni del mondo" loading="lazy" style="margin-top:2rem;width:100%;max-height:300px;object-fit:cover">
       </div>
@@ -120,19 +120,12 @@
 
 <script>
 (function(){
+  var nav=document.querySelector('.site-nav');
+  nav.classList.add('site-nav--solid');
+  window.addEventListener('scroll',function(){if(window.scrollY>80){nav.classList.add('site-nav--solid');}else{nav.classList.remove('site-nav--solid');}},{passive:true});
   var btn=document.querySelector('.hamburger'),menu=document.getElementById('mobile-nav');
-  btn.addEventListener('click',function(){
-    var o=menu.classList.toggle('open');
-    btn.classList.toggle('open',o);
-    btn.setAttribute('aria-expanded',o);
-  });
-  menu.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click',function(){
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded','false');
-    });
-  });
+  btn.addEventListener('click',function(){var o=menu.classList.toggle('open');btn.classList.toggle('open',o);btn.setAttribute('aria-expanded',o);});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open');btn.classList.remove('open');btn.setAttribute('aria-expanded','false');});});
 })();
 </script>
 </body>
