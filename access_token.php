@@ -1,5 +1,5 @@
 <?php
-    define("TOKEN", "IGQWRPa0JqeTZAWM25MdHdZAczNiZAC1LMlBFcThNZAkVtb1d6S1daZAzhDYWlLU2JCUjZAuWng3aDh0LVF3ZAEwyMzc5V3VLanJSaU43SEs1VGV2V0VpcmJDemxBMWE4dGliMzlhX0pvQjJPRC02QQZDZD");
+    define("TOKEN", "");
     define("MAX_MEDIA_COUNT", 60);
     define("DOMAIN_NAME", "lucianovelli.com");
 ?>
