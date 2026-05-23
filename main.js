@@ -2,56 +2,41 @@
    Lucia Novelli — main.js (shared across all pages)
    ============================================================ */
 (function () {
-  /* ── Page fade-in ── */
-  document.body.style.opacity = '0';
-  document.body.style.transition = 'opacity 0.4s ease';
-  window.addEventListener('load', function () {
-    document.body.style.opacity = '1';
-  });
+  'use strict';
 
-  /* ── Page fade-out on navigation ── */
-  document.addEventListener('click', function (e) {
-    var link = e.target.closest('a[href]');
-    if (!link) return;
-    var href = link.getAttribute('href');
-    if (!href || href.charAt(0) === '#' || href.indexOf('mailto:') === 0 ||
-        href.indexOf('tel:') === 0 || link.target === '_blank') return;
-    if (href.indexOf('http') === 0 && href.indexOf('lucianovelli.com') < 0) return;
-    e.preventDefault();
-    document.body.style.opacity = '0';
-    setTimeout(function () { window.location.href = href; }, 350);
-  });
-
-  /* ── Nav transparency ── */
+  /* ── Nav: solid background once scrolled past the hero ── */
   var nav = document.querySelector('.site-nav');
   var hero = document.querySelector('.hero');
-  function updateNav() {
-    if (!hero || window.scrollY > 80) {
-      nav.classList.add('site-nav--solid');
-    } else {
-      nav.classList.remove('site-nav--solid');
-    }
+  if (nav) {
+    var updateNav = function () {
+      nav.classList.toggle('site-nav--solid', !hero || window.scrollY > 80);
+    };
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
   }
-  window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav();
 
-  /* ── Hamburger ── */
+  /* ── Mobile menu ── */
   var btn = document.querySelector('.hamburger');
   var menu = document.getElementById('mobile-nav');
-  btn.addEventListener('click', function () {
-    var o = menu.classList.toggle('open');
-    btn.classList.toggle('open', o);
-    btn.setAttribute('aria-expanded', o);
-  });
-  menu.querySelectorAll('a').forEach(function (a) {
-    a.addEventListener('click', function () {
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
+  if (btn && menu) {
+    var setMenu = function (open) {
+      menu.classList.toggle('open', open);
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      document.body.classList.toggle('scroll-locked', open);
+    };
+    btn.addEventListener('click', function () {
+      setMenu(!menu.classList.contains('open'));
     });
-  });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { setMenu(false); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('open')) setMenu(false);
+    });
+  }
 
-  /* ── Scroll reveal ── */
+  /* ── Scroll reveal (progressive enhancement) ── */
   if ('IntersectionObserver' in window) {
     var ro = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -83,18 +68,86 @@
     });
   }
 
-  /* ── Gallery accessibility ── */
-  document.querySelectorAll('.gallery-item').forEach(function (item) {
-    var title = item.getAttribute('data-title') || (item.querySelector('img') || {}).alt || 'Painting';
-    item.setAttribute('role', 'button');
-    item.setAttribute('tabindex', '0');
-    item.setAttribute('aria-label', 'View: ' + title);
-    item.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); item.click(); }
-    });
-  });
+  /* ── Gallery lightbox (only on gallery pages) ── */
+  var lb = document.getElementById('lightbox');
+  var items = document.querySelectorAll('.gallery-item');
+  if (lb && items.length) {
+    var lbImg = document.getElementById('lightbox-img');
+    var lbCap = document.getElementById('lightbox-caption');
+    var lbCount = document.getElementById('lightbox-counter');
+    var btnClose = document.getElementById('lightbox-close');
+    var btnPrev = document.getElementById('lightbox-prev');
+    var btnNext = document.getElementById('lightbox-next');
+    var cur = 0;
+    var lastFocused = null;
 
-  /* ── Contact form AJAX ── */
+    var labelFor = function (el) {
+      return el.getAttribute('data-title') || (el.querySelector('img') || {}).alt || 'Painting';
+    };
+
+    items.forEach(function (item, i) {
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('aria-label', 'View: ' + labelFor(item));
+      item.addEventListener('click', function () { openAt(i); });
+      item.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openAt(i); }
+      });
+    });
+
+    function render(idx) {
+      cur = (idx + items.length) % items.length;
+      var el = items[cur];
+      var img = el.querySelector('img');
+      var webp = el.querySelector('source[type="image/webp"]');
+      lbImg.src = webp ? webp.srcset : (img ? img.src : '');
+      lbImg.alt = img ? img.alt : '';
+      lbCap.textContent = labelFor(el);
+      if (lbCount) lbCount.textContent = (cur + 1) + ' / ' + items.length;
+    }
+    function openAt(idx) {
+      lastFocused = document.activeElement;
+      render(idx);
+      lb.classList.add('open');
+      document.body.classList.add('scroll-locked');
+      btnClose.focus();
+    }
+    function close() {
+      lb.classList.remove('open');
+      document.body.classList.remove('scroll-locked');
+      if (lastFocused && lastFocused.focus) lastFocused.focus();
+    }
+
+    btnClose.addEventListener('click', close);
+    btnPrev.addEventListener('click', function () { render(cur - 1); });
+    btnNext.addEventListener('click', function () { render(cur + 1); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') { close(); }
+      else if (e.key === 'ArrowLeft') { render(cur - 1); }
+      else if (e.key === 'ArrowRight') { render(cur + 1); }
+      else if (e.key === 'Tab') {
+        /* Keep focus inside the dialog */
+        var f = [btnPrev, btnNext, btnClose];
+        var i = f.indexOf(document.activeElement);
+        e.preventDefault();
+        var n = e.shiftKey ? (i <= 0 ? f.length - 1 : i - 1)
+                           : (i === f.length - 1 ? 0 : i + 1);
+        f[n].focus();
+      }
+    });
+
+    var tsX = 0;
+    lb.addEventListener('touchstart', function (e) { tsX = e.changedTouches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - tsX;
+      if (Math.abs(dx) > 50) render(dx > 0 ? cur - 1 : cur + 1);
+    });
+  }
+
+  /* ── Contact form (AJAX) ── */
   var form = document.querySelector('.contact-form');
   if (form) {
     var lang = document.documentElement.lang || 'en';

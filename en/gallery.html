@@ -262,45 +262,5 @@
 
 <button class="back-to-top" id="back-to-top" aria-label="Back to top">&#8593;</button>
 <script src="/main.js" defer></script>
-<script>
-(function(){
-  // Lightbox with prev/next
-  var items=document.querySelectorAll('.gallery-item');
-  var lb=document.getElementById('lightbox');
-  var lbImg=document.getElementById('lightbox-img');
-  var lbCap=document.getElementById('lightbox-caption');
-  var lbCount=document.getElementById('lightbox-counter');
-  var cur=0;
-  function show(idx){
-    cur=idx;
-    var el=items[idx];
-    var img=el.querySelector('img');
-    var src=el.querySelector('source[type="image/webp"]');
-    lbImg.src=src?src.srcset:img.src;lbImg.alt=img.alt;
-    lbCap.textContent=el.getAttribute('data-title')||img.alt;
-    if(lbCount)lbCount.textContent=(idx+1)+' / '+items.length;
-    lb.classList.add('open');
-    document.body.style.overflow='hidden';
-  }
-  function close(){lb.classList.remove('open');document.body.style.overflow='';}
-  items.forEach(function(item,i){item.addEventListener('click',function(){show(i);});});
-  document.getElementById('lightbox-close').addEventListener('click',close);
-  document.getElementById('lightbox-prev').addEventListener('click',function(){show((cur-1+items.length)%items.length);});
-  document.getElementById('lightbox-next').addEventListener('click',function(){show((cur+1)%items.length);});
-  lb.addEventListener('click',function(e){if(e.target===lb)close();});
-  document.addEventListener('keydown',function(e){
-    if(!lb.classList.contains('open'))return;
-    if(e.key==='Escape')close();
-    if(e.key==='ArrowLeft')show((cur-1+items.length)%items.length);
-    if(e.key==='ArrowRight')show((cur+1)%items.length);
-  });
-  var tsX=0;
-  lb.addEventListener('touchstart',function(e){tsX=e.changedTouches[0].clientX;},{passive:true});
-  lb.addEventListener('touchend',function(e){
-    var dx=e.changedTouches[0].clientX-tsX;
-    if(Math.abs(dx)>50){dx>0?show((cur-1+items.length)%items.length):show((cur+1)%items.length);}
-  });
-})();
-</script>
 </body>
 </html>

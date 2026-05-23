@@ -14,6 +14,9 @@
   --ease:   0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ── Smooth cross-page transitions (progressive enhancement) ── */
+@view-transition { navigation: auto; }
+
 /* ── Selection ── */
 ::selection { background: var(--gold); color: var(--ink); }
 
@@ -32,9 +35,11 @@ body {
   background: var(--paper);
   overflow-x: hidden;
   line-height: 1.7;
-  cursor: crosshair;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-a, button { cursor: crosshair; }
+body.scroll-locked { overflow: hidden; }
+a[href], button, [role="button"], summary, label[for] { cursor: pointer; }
 img { display: block; max-width: 100%; height: auto; }
 a   { color: inherit; text-decoration: none; }
 .instagram-link { opacity: .55; transition: opacity .3s; display: inline-block; }
@@ -866,6 +871,22 @@ p  { font-size: 1rem; line-height: 1.9; }
 @media (max-width: 380px) {
   .art-grid     { grid-template-columns: 1fr; }
   .gallery-grid { columns: 1; }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .hero-scroll-line { animation: none !important; }
+  ::view-transition-old(root),
+  ::view-transition-new(root) { animation: none !important; }
 }
 
 /* ============================================================
