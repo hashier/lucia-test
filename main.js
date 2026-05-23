@@ -27,6 +27,14 @@
     if (!href || href.charAt(0) === '#' || link.target === '_blank') return;
     if (href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) return;
     if (!isSameOrigin(href)) return;
+
+    /* ── Set language cookie on flag click ── */
+    var langLink = link.closest('.lang-flags a, .mobile-lang a');
+    if (langLink) {
+      var isIt = langLink.getAttribute('href').indexOf('/it') === 0;
+      document.cookie = 'lang=' + (isIt ? 'it' : 'en') + ';path=/;max-age=2592000';
+    }
+
     e.preventDefault();
     document.body.style.opacity = '0';
     setTimeout(function () { window.location.href = href; }, 350);
@@ -49,6 +57,27 @@
   }
   window.addEventListener('scroll', updateNav, { passive: true });
   updateNav();
+
+  /* ── Parallax hero ── */
+  if (hero) {
+    var heroBg = hero.querySelector('.hero-bg');
+    if (heroBg) {
+      var ticking = false;
+      function updateParallax() {
+        var offset = window.scrollY * 0.4;
+        if (window.scrollY <= hero.offsetHeight + 100) {
+          heroBg.style.transform = 'translateY(' + offset + 'px)';
+        }
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) {
+          requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      }, { passive: true });
+    }
+  }
 
   /* ── Hamburger ── */
   var btn = document.querySelector('.hamburger');
