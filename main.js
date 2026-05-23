@@ -114,8 +114,9 @@
       submitBtn.textContent = t.sending;
       submitBtn.disabled = true;
       fetch(form.action, { method: 'POST', body: new FormData(form) })
-        .then(function (r) {
-          if (!r.ok) throw new Error();
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          if (!data.success) throw new Error(data.error || '');
           var msg = document.createElement('p');
           msg.className = 'form-success';
           msg.textContent = t.success;

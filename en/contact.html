@@ -80,6 +80,7 @@
         <p class="label">Send a Message</p>
         <h2 style="margin-bottom:2.5rem">Write to Us</h2>
         <form class="contact-form" action="/sendmail.php" method="post">
+          <input type="hidden" name="recipient" value="info@lucianovelli.com">
           <div class="contact-form-field">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" placeholder="Your name" required>
