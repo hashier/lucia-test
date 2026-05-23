@@ -135,4 +135,61 @@
         });
     });
   }
+
+  /* ── Lightbox ── */
+  var galleryItems = document.querySelectorAll('.gallery-item');
+  if (galleryItems.length) {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
+    var lbCap = document.getElementById('lightbox-caption');
+    var lbCount = document.getElementById('lightbox-counter');
+    var cur = 0;
+    function show(idx) {
+      cur = idx;
+      var el = galleryItems[idx];
+      var img = el.querySelector('img');
+      var src = el.querySelector('source[type="image/webp"]');
+      lbImg.src = src ? src.srcset : img.src;
+      lbImg.alt = img.alt;
+      lbCap.textContent = el.getAttribute('data-title') || img.alt;
+      if (lbCount) lbCount.textContent = (idx + 1) + ' / ' + galleryItems.length;
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lb.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    galleryItems.forEach(function (item, i) {
+      item.addEventListener('click', function () { show(i); });
+    });
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-prev').addEventListener('click', function () {
+      show((cur - 1 + galleryItems.length) % galleryItems.length);
+    });
+    document.getElementById('lightbox-next').addEventListener('click', function () {
+      show((cur + 1) % galleryItems.length);
+    });
+    lb.addEventListener('click', function (e) {
+      if (e.target === lb) closeLightbox();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') show((cur - 1 + galleryItems.length) % galleryItems.length);
+      if (e.key === 'ArrowRight') show((cur + 1) % galleryItems.length);
+    });
+    var tsX = 0;
+    lb.addEventListener('touchstart', function (e) {
+      tsX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    lb.addEventListener('touchend', function (e) {
+      var dx = e.changedTouches[0].clientX - tsX;
+      if (Math.abs(dx) > 50) {
+        dx > 0
+          ? show((cur - 1 + galleryItems.length) % galleryItems.length)
+          : show((cur + 1) % galleryItems.length);
+      }
+    });
+  }
 })();
