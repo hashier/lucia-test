@@ -8,18 +8,33 @@
   window.addEventListener('load', function () {
     document.body.style.opacity = '1';
   });
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) document.body.style.opacity = '1';
+  });
 
-  /* ── Page fade-out on navigation ── */
+  /* ── Page fade-out on same-origin navigation ── */
+  function isSameOrigin(href) {
+    try {
+      return new URL(href, window.location.href).hostname === window.location.hostname;
+    } catch (_) {
+      return false;
+    }
+  }
   document.addEventListener('click', function (e) {
     var link = e.target.closest('a[href]');
     if (!link) return;
     var href = link.getAttribute('href');
-    if (!href || href.charAt(0) === '#' || href.indexOf('mailto:') === 0 ||
-        href.indexOf('tel:') === 0 || link.target === '_blank') return;
-    if (href.indexOf('http') === 0 && href.indexOf('lucianovelli.com') < 0) return;
+    if (!href || href.charAt(0) === '#' || link.target === '_blank') return;
+    if (href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) return;
+    if (!isSameOrigin(href)) return;
     e.preventDefault();
     document.body.style.opacity = '0';
     setTimeout(function () { window.location.href = href; }, 350);
+  });
+
+  /* ── Fallback: fade-out on unload ── */
+  window.addEventListener('beforeunload', function () {
+    document.body.style.opacity = '0';
   });
 
   /* ── Nav transparency ── */
