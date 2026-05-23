@@ -201,6 +201,18 @@
       lbImg.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
     }
 
+    function preloadAdjacent(idx) {
+      [idx - 1, idx + 1].forEach(function (i) {
+        if (i >= 0 && i < galleryItems.length) {
+          var el = galleryItems[i];
+          var img = el.querySelector('img');
+          var src = el.querySelector('source[type="image/webp"]');
+          var url = src ? src.srcset : img.src;
+          (new Image()).src = url;
+        }
+      });
+    }
+
     function show(idx, dir) {
       if (sliding) return;
       var wasOpen = lb.classList.contains('open');
@@ -217,6 +229,9 @@
 
       if (!wasOpen) {
         swapImage(nextSrc, nextAlt);
+        lbImgNext.style.opacity = '0';
+        lbImgNext.style.transform = 'translateX(0)';
+        preloadAdjacent(cur);
         return;
       }
 
@@ -224,23 +239,28 @@
       var outX = dir > 0 ? '-50px' : '50px';
       var inFromX = dir > 0 ? '50px' : '-50px';
 
-      lbImgNext.style.transition = 'none';
-      lbImgNext.src = nextSrc;
-      lbImgNext.alt = nextAlt;
-      lbImgNext.style.transform = 'translateX(' + inFromX + ')';
-      lbImgNext.style.opacity = '0';
-      lbImgNext.offsetHeight;
-      lbImgNext.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
+      var preload = new Image();
+      preload.onload = preload.onerror = function () {
+        lbImgNext.style.transition = 'none';
+        lbImgNext.src = nextSrc;
+        lbImgNext.alt = nextAlt;
+        lbImgNext.style.transform = 'translateX(' + inFromX + ')';
+        lbImgNext.style.opacity = '0';
+        lbImgNext.offsetHeight;
+        lbImgNext.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
 
-      lbImg.style.transform = 'translateX(' + outX + ')';
-      lbImg.style.opacity = '0';
-      lbImgNext.style.transform = 'translateX(0)';
-      lbImgNext.style.opacity = '1';
+        lbImg.style.transform = 'translateX(' + outX + ')';
+        lbImg.style.opacity = '0';
+        lbImgNext.style.transform = 'translateX(0)';
+        lbImgNext.style.opacity = '1';
 
-      setTimeout(function () {
-        swapImage(nextSrc, nextAlt);
-        sliding = false;
-      }, 350);
+        setTimeout(function () {
+          swapImage(nextSrc, nextAlt);
+          preloadAdjacent(cur);
+          sliding = false;
+        }, 350);
+      };
+      preload.src = nextSrc;
     }
     function closeLightbox() {
       lb.classList.remove('open');
