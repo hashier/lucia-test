@@ -2,16 +2,6 @@
    Lucia Novelli — main.js (shared across all pages)
    ============================================================ */
 (function () {
-  /* ── Page fade-in ── */
-  document.body.style.opacity = '0';
-  document.body.style.transition = 'opacity 0.4s ease';
-  window.addEventListener('load', function () {
-    document.body.style.opacity = '1';
-  });
-  window.addEventListener('pageshow', function (e) {
-    if (e.persisted) document.body.style.opacity = '1';
-  });
-
   /* ── Page fade-out on same-origin navigation ── */
   function isSameOrigin(href) {
     try {
