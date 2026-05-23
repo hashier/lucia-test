@@ -7,7 +7,7 @@
   <url><loc>https://lucianovelli.com/en/contact</loc><priority>0.7</priority><changefreq>yearly</changefreq></url>
   <url><loc>https://lucianovelli.com/it/</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://lucianovelli.com/it/sull-artista</loc><priority>0.8</priority><changefreq>yearly</changefreq></url>
-  <url><loc>https://lucianovelli.com/it/portfolio-1</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://lucianovelli.com/it/portfolio</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://lucianovelli.com/it/galleria</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
   <url><loc>https://lucianovelli.com/it/contatti</loc><priority>0.7</priority><changefreq>yearly</changefreq></url>
 </urlset>
