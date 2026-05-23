@@ -185,34 +185,76 @@
   if (galleryItems.length) {
     var lb = document.getElementById('lightbox');
     var lbImg = document.getElementById('lightbox-img');
+    var lbImgNext = document.getElementById('lightbox-img-next');
     var lbCap = document.getElementById('lightbox-caption');
     var lbCount = document.getElementById('lightbox-counter');
     var cur = 0;
-    function show(idx) {
+    var sliding = false;
+
+    function swapImage(src, alt) {
+      lbImg.style.transition = 'none';
+      lbImg.src = src;
+      lbImg.alt = alt;
+      lbImg.style.opacity = '1';
+      lbImg.style.transform = 'translateX(0)';
+      lbImg.offsetHeight;
+      lbImg.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
+    }
+
+    function show(idx, dir) {
+      if (sliding) return;
+      var wasOpen = lb.classList.contains('open');
       cur = idx;
       var el = galleryItems[idx];
       var img = el.querySelector('img');
       var src = el.querySelector('source[type="image/webp"]');
-      lbImg.src = src ? src.srcset : img.src;
-      lbImg.alt = img.alt;
+      var nextSrc = src ? src.srcset : img.src;
+      var nextAlt = img.alt;
       lbCap.textContent = el.getAttribute('data-title') || img.alt;
       if (lbCount) lbCount.textContent = (idx + 1) + ' / ' + galleryItems.length;
       lb.classList.add('open');
       document.body.style.overflow = 'hidden';
+
+      if (!wasOpen) {
+        swapImage(nextSrc, nextAlt);
+        return;
+      }
+
+      sliding = true;
+      var outX = dir > 0 ? '-50px' : '50px';
+      var inFromX = dir > 0 ? '50px' : '-50px';
+
+      lbImgNext.style.transition = 'none';
+      lbImgNext.src = nextSrc;
+      lbImgNext.alt = nextAlt;
+      lbImgNext.style.transform = 'translateX(' + inFromX + ')';
+      lbImgNext.style.opacity = '0';
+      lbImgNext.offsetHeight;
+      lbImgNext.style.transition = 'transform 0.35s ease, opacity 0.35s ease';
+
+      lbImg.style.transform = 'translateX(' + outX + ')';
+      lbImg.style.opacity = '0';
+      lbImgNext.style.transform = 'translateX(0)';
+      lbImgNext.style.opacity = '1';
+
+      setTimeout(function () {
+        swapImage(nextSrc, nextAlt);
+        sliding = false;
+      }, 350);
     }
     function closeLightbox() {
       lb.classList.remove('open');
       document.body.style.overflow = '';
     }
     galleryItems.forEach(function (item, i) {
-      item.addEventListener('click', function () { show(i); });
+      item.addEventListener('click', function () { show(i, 0); });
     });
     document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
     document.getElementById('lightbox-prev').addEventListener('click', function () {
-      show((cur - 1 + galleryItems.length) % galleryItems.length);
+      show((cur - 1 + galleryItems.length) % galleryItems.length, -1);
     });
     document.getElementById('lightbox-next').addEventListener('click', function () {
-      show((cur + 1) % galleryItems.length);
+      show((cur + 1) % galleryItems.length, 1);
     });
     lb.addEventListener('click', function (e) {
       if (e.target === lb) closeLightbox();
@@ -220,8 +262,8 @@
     document.addEventListener('keydown', function (e) {
       if (!lb.classList.contains('open')) return;
       if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') show((cur - 1 + galleryItems.length) % galleryItems.length);
-      if (e.key === 'ArrowRight') show((cur + 1) % galleryItems.length);
+      if (e.key === 'ArrowLeft') show((cur - 1 + galleryItems.length) % galleryItems.length, -1);
+      if (e.key === 'ArrowRight') show((cur + 1) % galleryItems.length, 1);
     });
     var tsX = 0;
     lb.addEventListener('touchstart', function (e) {
@@ -231,8 +273,8 @@
       var dx = e.changedTouches[0].clientX - tsX;
       if (Math.abs(dx) > 50) {
         dx > 0
-          ? show((cur - 1 + galleryItems.length) % galleryItems.length)
-          : show((cur + 1) % galleryItems.length);
+          ? show((cur - 1 + galleryItems.length) % galleryItems.length, -1)
+          : show((cur + 1) % galleryItems.length, 1);
       }
     });
   }

@@ -616,17 +616,17 @@ p  { font-size: 1rem; line-height: 1.9; }
 }
 .lightbox.open { display: flex; }
 .lightbox-inner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 }
 .lightbox-inner img {
+  grid-area: 1 / 1;
   max-width: 86vw;
   max-height: 85vh;
   object-fit: contain;
   box-shadow: 0 30px 80px rgba(0,0,0,0.6);
   display: block;
+  transition: transform 0.35s ease, opacity 0.35s ease;
 }
 .lightbox-caption {
   position: absolute;
