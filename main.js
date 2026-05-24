@@ -84,18 +84,20 @@
   /* ── Hamburger ── */
   var btn = document.querySelector('.hamburger');
   var menu = document.getElementById('mobile-nav');
-  btn.addEventListener('click', function () {
-    var o = menu.classList.toggle('open');
-    btn.classList.toggle('open', o);
-    btn.setAttribute('aria-expanded', o);
-  });
-  menu.querySelectorAll('a').forEach(function (a) {
-    a.addEventListener('click', function () {
-      menu.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded', 'false');
+  if (btn && menu) {
+    btn.addEventListener('click', function () {
+      var o = menu.classList.toggle('open');
+      btn.classList.toggle('open', o);
+      btn.setAttribute('aria-expanded', o);
     });
-  });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        menu.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   /* ── Scroll reveal ── */
   if ('IntersectionObserver' in window) {
