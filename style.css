@@ -734,7 +734,7 @@ p  { font-size: 1rem; line-height: 1.9; }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
   margin-top: 4rem;
 }
@@ -750,13 +750,14 @@ p  { font-size: 1rem; line-height: 1.9; }
 }
 .service-card img {
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 1/1;
   object-fit: cover;
   margin-bottom: 1.5rem;
   border-radius: 3px;
+  display: block;
 }
-.service-card h3 { font-size: 1.05rem; font-style: italic; margin-bottom: 0.6rem; }
-.service-card p  { font-size: 0.85rem; color: var(--muted); line-height: 1.75; }
+.service-card h3 { font-size: 1.05rem; font-style: italic; margin-bottom: 0.6rem; text-align: center; }
+.service-card p  { font-size: 0.85rem; color: var(--muted); line-height: 1.75; text-align: center; }
 
 /* ============================================================
    CONTACT
@@ -867,6 +868,7 @@ p  { font-size: 1rem; line-height: 1.9; }
    ============================================================ */
 @media (max-width: 1024px) {
   .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .services-grid  { grid-template-columns: 1fr 1fr; gap: 2rem; }
 }
 
 @media (max-width: 900px) {
@@ -887,6 +889,7 @@ p  { font-size: 1rem; line-height: 1.9; }
   .art-grid        { grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 2.5rem; }
   .gallery-grid    { columns: 2; }
   .portfolio-grid  { grid-template-columns: 1fr; }
+  .services-grid   { grid-template-columns: 1fr; }
   .exhibitions-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
   .cta-strip       { padding: 5rem 1.25rem; }
   .page-hero       { padding: 8rem 0 4rem; }
