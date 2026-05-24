@@ -555,9 +555,11 @@ p  { font-size: 1rem; line-height: 1.9; }
    ============================================================ */
 .exhibitions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 1.25rem;
-  margin-top: 4rem;
+  align-items: center;
+  margin: 4rem auto 0;
+  max-width: 900px;
 }
 .exhibitions-grid picture {
   display: block;
@@ -565,7 +567,6 @@ p  { font-size: 1rem; line-height: 1.9; }
 }
 .exhibitions-grid img {
   width: 100%;
-  aspect-ratio: 3 / 4;
   object-fit: cover;
   transition: transform 0.65s ease, filter 0.65s ease;
   filter: grayscale(20%);
@@ -886,6 +887,10 @@ p  { font-size: 1rem; line-height: 1.9; }
 
 @media (max-width: 700px) {
   .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+}
+
+@media (max-width: 768px) {
+  .exhibitions-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 }
 
 @media (max-width: 600px) {
