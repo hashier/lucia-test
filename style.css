@@ -799,6 +799,8 @@ p  { font-size: 1rem; line-height: 1.9; }
 .contact-form-field textarea { height: 110px; }
 
 .contact-detail { margin-bottom: 2rem; }
+.phone-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
+.phone-flag { flex-shrink: 0; width: 22px; height: 14px; }
 .contact-detail strong {
   display: block;
   font-family: 'DM Sans', sans-serif;
