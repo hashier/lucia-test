@@ -12,7 +12,8 @@
   }
   function navigate(href) {
     if ('startViewTransition' in document) {
-      window.location.href = href; /* @view-transition in CSS handles the animation */
+      /* Partial effect: old page fades out as new page loads */
+      document.startViewTransition(function () { window.location.href = href; });
     } else {
       document.body.style.opacity = '0';
       setTimeout(function () { window.location.href = href; }, 200);
@@ -33,6 +34,8 @@
       document.cookie = 'lang=' + (isIt ? 'it' : 'en') + ';path=/;max-age=2592000';
     }
 
+    /* Browsers with onpagereveal support cross-document @view-transition natively */
+    if ('onpagereveal' in window) return;
     e.preventDefault();
     navigate(href);
   });
