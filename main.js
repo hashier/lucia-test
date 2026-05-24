@@ -35,6 +35,13 @@
     document.body.style.opacity = '0';
   });
 
+  /* ── bfcache restore: reset opacity so page isn't white on back ── */
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      document.body.style.opacity = '';
+    }
+  });
+
   /* ── Nav transparency ── */
   var nav = document.querySelector('.site-nav');
   var hero = document.querySelector('.hero');
