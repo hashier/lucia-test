@@ -11,10 +11,8 @@
     }
   }
   function navigate(href) {
-    if (document.startViewTransition) {
-      document.startViewTransition(function () {
-        window.location.href = href;
-      });
+    if ('startViewTransition' in document) {
+      window.location.href = href; /* @view-transition in CSS handles the animation */
     } else {
       document.body.style.opacity = '0';
       setTimeout(function () { window.location.href = href; }, 200);
@@ -57,7 +55,10 @@
     }
   }
   window.addEventListener('scroll', updateNav, { passive: true });
+  nav.classList.add('site-nav--instant');
   updateNav();
+  nav.offsetHeight;
+  nav.classList.remove('site-nav--instant');
 
   /* ── Parallax hero ── */
   if (hero) {
