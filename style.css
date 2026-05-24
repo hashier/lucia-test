@@ -90,6 +90,12 @@ p  { font-size: 1rem; line-height: 1.9; }
 /* ── Utilities ── */
 .container { max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
 .section   { padding: 8rem 0; }
+.section:has(+ .section),
+.section:has(+ .section--alt),
+.section--alt:has(+ .section) { padding-bottom: 4rem; }
+.section + .section,
+.section + .section--alt,
+.section--alt + .section { padding-top: 4rem; }
 .section--alt { background: var(--warm); }
 
 .label {
@@ -459,7 +465,7 @@ p  { font-size: 1rem; line-height: 1.9; }
    ============================================================ */
 .art-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
   margin-top: 4rem;
 }
