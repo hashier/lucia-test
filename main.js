@@ -2,12 +2,22 @@
    Lucia Novelli — main.js (shared across all pages)
    ============================================================ */
 (function () {
-  /* ── Page fade-out on same-origin navigation ── */
+  /* ── Page transition on same-origin navigation ── */
   function isSameOrigin(href) {
     try {
       return new URL(href, window.location.href).hostname === window.location.hostname;
     } catch (_) {
       return false;
+    }
+  }
+  function navigate(href) {
+    if (document.startViewTransition) {
+      document.startViewTransition(function () {
+        window.location.href = href;
+      });
+    } else {
+      document.body.style.opacity = '0';
+      setTimeout(function () { window.location.href = href; }, 200);
     }
   }
   document.addEventListener('click', function (e) {
@@ -26,13 +36,7 @@
     }
 
     e.preventDefault();
-    document.body.style.opacity = '0';
-    setTimeout(function () { window.location.href = href; }, 350);
-  });
-
-  /* ── Fallback: fade-out on unload ── */
-  window.addEventListener('beforeunload', function () {
-    document.body.style.opacity = '0';
+    navigate(href);
   });
 
   /* ── bfcache restore: reset opacity so page isn't white on back ── */
