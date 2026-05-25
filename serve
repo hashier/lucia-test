@@ -9,6 +9,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*a, directory=ROOT, **kw)
 
     def translate_path(self, path):
+        path = path.split('#')[0]
         p = super().translate_path(path)
         if not os.path.splitext(path)[1] and not os.path.exists(p) and os.path.exists(p + ".html"):
             return p + ".html"
