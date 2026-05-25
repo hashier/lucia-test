@@ -896,12 +896,12 @@ p  { font-size: 1rem; line-height: 1.9; }
   .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
 }
 
-@media (max-width: 700px) {
-  .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-}
-
 @media (max-width: 768px) {
   .exhibitions-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+}
+
+@media (max-width: 700px) {
+  .portfolio-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 }
 
 @media (max-width: 600px) {
