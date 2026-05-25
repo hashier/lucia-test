@@ -101,6 +101,10 @@ p  { font-size: 1rem; line-height: 1.9; }
 .section--alt + .section { padding-top: 4rem; }
 .section--alt { background: var(--warm); }
 
+@supports not (selector(:has(*))) {
+  .section, .section--alt { padding-bottom: 4rem; }
+}
+
 .label {
   display: block;
   font-family: 'DM Sans', sans-serif;
