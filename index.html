@@ -88,42 +88,42 @@
     <h2>Selected Works</h2>
     <p class="subtitle">A few selected and highlighted paintings, updated every few months.</p>
     <div class="art-grid">
-      <div class="art-card">
+      <div class="art-card" data-title="Moving Life" role="button" tabindex="0" aria-label="View: Moving Life">
         <picture>
       <source srcset="/onewebmedia/Moving%20life%20(100x150cm).webp" type="image/webp">
       <img src="/onewebmedia/Moving%20life%20(100x150cm).JPG" alt="Moving Life" loading="lazy" width="479" height="350">
     </picture>
         <div class="art-card-body"><h4>Moving Life</h4><p>100×150 cm &mdash; 2018</p></div>
       </div>
-      <div class="art-card">
+      <div class="art-card" data-title="È ora di volare" role="button" tabindex="0" aria-label="View: È ora di volare">
         <picture>
       <source srcset="/onewebmedia/%C3%88%20ora%20di%20volare%20(2).webp" type="image/webp">
       <img src="/onewebmedia/%C3%88%20ora%20di%20volare%20(2).jpg" alt="È ora di volare" loading="lazy" width="1016" height="800">
     </picture>
         <div class="art-card-body"><h4>È ora di volare</h4><p>20×25 cm &mdash; 2019</p></div>
       </div>
-      <div class="art-card">
+      <div class="art-card" data-title="Prendi il mio cuore" role="button" tabindex="0" aria-label="View: Prendi il mio cuore">
         <picture>
       <source srcset="/onewebmedia/Prendi%20il%20mio%20cuore%20(2).webp" type="image/webp">
       <img src="/onewebmedia/Prendi%20il%20mio%20cuore%20(2).jpg" alt="Prendi il mio cuore" loading="lazy" width="800" height="819">
     </picture>
         <div class="art-card-body"><h4>Prendi il mio cuore</h4><p>20×20 cm &mdash; 2019</p></div>
       </div>
-      <div class="art-card">
+      <div class="art-card" data-title="L'abbraccio" role="button" tabindex="0" aria-label="View: L'abbraccio">
         <picture>
       <source srcset="/onewebmedia/L_abbraccio.webp" type="image/webp">
       <img src="/onewebmedia/L_abbraccio.jpg" alt="L'abbraccio" loading="lazy" width="500" height="696">
     </picture>
         <div class="art-card-body"><h4>L'abbraccio</h4><p>100×80 cm &mdash; 2019</p></div>
       </div>
-      <div class="art-card">
+      <div class="art-card" data-title="Dama d'Oriente" role="button" tabindex="0" aria-label="View: Dama d'Oriente">
         <picture>
       <source srcset="/onewebmedia/Queen%2012%20(2).webp" type="image/webp">
       <img src="/onewebmedia/Queen%2012%20(2).jpg" alt="Dama d'Oriente" loading="lazy" width="500" height="750">
     </picture>
         <div class="art-card-body"><h4>Dama d'Oriente</h4><p>24×18 cm &mdash; 2020</p></div>
       </div>
-      <div class="art-card">
+      <div class="art-card" data-title="Viaggiatori nella notte" role="button" tabindex="0" aria-label="View: Viaggiatori nella notte">
         <picture>
       <source srcset="/onewebmedia/Viaggiatori%20nella%20notte%20(2).webp" type="image/webp">
       <img src="/onewebmedia/Viaggiatori%20nella%20notte%20(2).jpg" alt="Viaggiatori nella notte" loading="lazy" width="800" height="811">
@@ -203,6 +203,18 @@
     </div>
   </div>
 </section>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" id="lightbox-close">&times;</button>
+  <button class="lightbox-prev" id="lightbox-prev">&#8249;</button>
+  <button class="lightbox-next" id="lightbox-next">&#8250;</button>
+  <div class="lightbox-inner">
+    <img src="" alt="" id="lightbox-img">
+    <img src="" alt="" id="lightbox-img-next">
+    <p class="lightbox-caption" id="lightbox-caption"></p>
+  </div>
+  <p class="lightbox-counter" id="lightbox-counter"></p>
+</div>
 
 <section class="cta-strip">
   <p class="label">Acquire a Painting</p>

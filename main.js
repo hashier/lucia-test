@@ -98,7 +98,7 @@
   }
 
   /* ── Gallery accessibility ── */
-  document.querySelectorAll('.gallery-item').forEach(function (item) {
+  document.querySelectorAll('.gallery-item, .art-card, .exhibitions-grid picture').forEach(function (item) {
     var title = item.getAttribute('data-title') || (item.querySelector('img') || {}).alt || 'Painting';
     item.setAttribute('role', 'button');
     item.setAttribute('tabindex', '0');
@@ -151,7 +151,7 @@
   }
 
   /* ── Lightbox ── */
-  var galleryItems = document.querySelectorAll('.gallery-item');
+  var galleryItems = document.querySelectorAll('.gallery-item, .art-card, .exhibitions-grid picture');
   if (galleryItems.length) {
     var lb = document.getElementById('lightbox');
     var lbImg = document.getElementById('lightbox-img');
