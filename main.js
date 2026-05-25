@@ -2,49 +2,12 @@
    Lucia Novelli — main.js (shared across all pages)
    ============================================================ */
 (function () {
-  /* ── Page transition on same-origin navigation ── */
-  function isSameOrigin(href) {
-    try {
-      return new URL(href, window.location.href).hostname === window.location.hostname;
-    } catch (_) {
-      return false;
-    }
-  }
-  function navigate(href) {
-    if ('startViewTransition' in document) {
-      /* Partial effect: old page fades out as new page loads */
-      document.startViewTransition(function () { window.location.href = href; });
-    } else {
-      document.body.style.opacity = '0';
-      setTimeout(function () { window.location.href = href; }, 200);
-    }
-  }
+  /* ── Set language cookie on flag click ── */
   document.addEventListener('click', function (e) {
-    var link = e.target.closest('a[href]');
-    if (!link) return;
-    var href = link.getAttribute('href');
-    if (!href || href.charAt(0) === '#' || link.target === '_blank') return;
-    if (href.indexOf('mailto:') === 0 || href.indexOf('tel:') === 0) return;
-    if (!isSameOrigin(href)) return;
-
-    /* ── Set language cookie on flag click ── */
-    var langLink = link.closest('.lang-flags a, .mobile-lang a');
-    if (langLink) {
-      var isIt = langLink.getAttribute('href').indexOf('/it') === 0;
-      document.cookie = 'lang=' + (isIt ? 'it' : 'en') + ';path=/;max-age=2592000';
-    }
-
-    /* Browsers with onpagereveal support cross-document @view-transition natively */
-    if ('onpagereveal' in window) return;
-    e.preventDefault();
-    navigate(href);
-  });
-
-  /* ── bfcache restore: reset opacity so page isn't white on back ── */
-  window.addEventListener('pageshow', function (e) {
-    if (e.persisted) {
-      document.body.style.opacity = '';
-    }
+    var langLink = e.target.closest('.lang-flags a, .mobile-lang a');
+    if (!langLink) return;
+    var isIt = langLink.getAttribute('href').indexOf('/it') === 0;
+    document.cookie = 'lang=' + (isIt ? 'it' : 'en') + ';path=/;max-age=2592000';
   });
 
   /* ── Nav transparency ── */
