@@ -1,0 +1,10 @@
+Before launching on lucianovelli.com, update these URLs across all HTML files:
+
+1. OG image URLs: test.loessl.org → lucianovelli.com
+   (og:image + twitter:image — 2 references per page, 10 pages)
+
+2. Canonical URLs: test.loessl.org → lucianovelli.com
+
+3. OG URLs: test.loessl.org → lucianovelli.com
+
+4. hreflang URLs: test.loessl.org → lucianovelli.com
