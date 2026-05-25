@@ -563,6 +563,9 @@ p  { font-size: 1rem; line-height: 1.9; }
 /* ============================================================
    EXHIBITIONS
    ============================================================ */
+
+/* Posters have varying aspect ratios (portrait/landscape) — no forced */
+/* uniform ratio is used. align-items: center handles vertical balance. */
 .exhibitions-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
