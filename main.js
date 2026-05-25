@@ -26,6 +26,15 @@
   nav.offsetHeight;
   nav.classList.remove('site-nav--instant');
 
+  /* ── bfcache restore: reset lightbox state so page isn't frozen ── */
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      document.body.style.overflow = '';
+      var lb = document.getElementById('lightbox');
+      if (lb) lb.classList.remove('open');
+    }
+  });
+
   /* ── Parallax hero ── */
   if (hero) {
     var heroBg = hero.querySelector('.hero-bg');
